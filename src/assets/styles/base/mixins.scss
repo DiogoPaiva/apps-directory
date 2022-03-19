@@ -1,0 +1,80 @@
+// Tiny ScrollBar
+@mixin scrollbar() {
+  scrollbar-width: thin;
+  scrollbar-color: $color-grey-666;
+  &::-webkit-scrollbar-corner {
+    background: $color-scroll-corner;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-grey-333;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-grey-999;
+    border-radius: 20px;
+    border: 3px solid $color-grey-999;
+  }
+}
+
+// Fade In
+@mixin fadeInAnimation {
+  animation: fadeIn;
+  animation-duration: 1s;
+  animation-delay: 500ms;
+  animation-direction: initial;
+}
+
+// Spinner
+@mixin SpinnerAnimation {
+  .loader,
+  .loader:after {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
+  .loader {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 0.5em solid rgba(213, 28, 83, 0.1);
+    border-right: 0.5em solid rgba(213, 28, 83, 0.1);
+    border-bottom: 0.5em solid rgba(213, 28, 83, 0.1);
+    border-left: 0.5em solid $color-red;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+  }
+  @-webkit-keyframes load8 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes load8 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+}

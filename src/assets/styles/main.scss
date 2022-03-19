@@ -1,0 +1,109 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-base;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.title-font {
+  font-family: $font-base;
+  font-weight: $font-regular;
+  &.bold {
+    font-weight: $font-bold;
+  }
+}
+
+.thin-scroolbar {
+  @include scrollbar();
+}
+
+@include SpinnerAnimation;
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  .App-header {
+    background-color: $color-red;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 1vmin);
+    color: $color-white;
+  }
+  .content-body {
+    height: calc(90vh - 40px);
+    overflow: hidden;
+    .inner-content {
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      position: relative;
+      .left-panel {
+        max-width: 35vw;
+        min-width: 120px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+        height: 100%;
+      }
+      .right-panel {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+        max-width: 65vw;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100%;
+      }
+    }
+  }
+  .fixed-footer {
+    height: 40px;
+    background-color: $color-grey-282;
+    color: $color-white;
+    font-size: calc(10px + 0.5vmin);
+    text-align: center;
+    .inner-text {
+      padding-top: 12px;
+      display: block;
+    }
+  }
+}
+
+.error-container {
+  color: $color-red;
+
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .error-inner {
+    width: 27vw;
+    max-width: 50vw;
+    min-width: 320px;
+    height: auto;
+    .icon-error {
+      font-size: calc(30px + 12vmin);
+      display: block;
+      margin-bottom: 30px;
+      opacity: 0.1;
+    }
+    .error-message {
+      font-size: calc(10px + 2.3vmin);
+      font-family: $font-base;
+      font-weight: $font-bold;
+    }
+  }
+}

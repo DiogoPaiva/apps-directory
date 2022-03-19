@@ -14,7 +14,7 @@ This library has to be intalled globally, otherwise it will not run properly. Ju
 
 #### `yarn add json-server -g --dev`
 
-This will install the json-server globbaly and be added to the dev dependencies of this project
+This will install the json-server globally and be added to the dev dependencies of this project
 
 ###
 

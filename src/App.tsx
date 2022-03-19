@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import FetchApps from "./data/services/apps.service";
 
 function App() {
+  // Get Data from the Service
+  const [data, isLoading, hasError] = FetchApps();
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1 className="title-font">Apps Listing</h1>
       </header>
+      <div className="content-body">
+        <div className="inner-content"></div>
+      </div>
+      <footer className="fixed-footer">
+        <span className="inner-text">
+          Made By Diogo Paiva - info@diogopaiva.com
+        </span>
+      </footer>
     </div>
   );
 }
