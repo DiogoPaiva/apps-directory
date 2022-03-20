@@ -22,10 +22,9 @@ useEffect(() => {
         (result) => {
             // Parse to use dot notation
             const arrayData = JSON.parse(JSON.stringify(result));
-            // Add a Timout to simulate fetch duration - Only for Exercise purpose :)
-            setTimeout(()=> {
-                setIsLoading(false);
-            }, 1000)
+            setData(arrayData);
+            setIsLoading(false);
+           
         },
         (error) => {
             setIsLoading(false);
