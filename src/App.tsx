@@ -1,21 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { AppsListing, Categories, SearchBar } from "./components";
-import useFetchApps from "./data/services/apps.search.service";
-import useFetchCategories from "./data/services/useGetCategories";
+import { IApp } from "./data/interfaces/app.interface";
+import FetchAppsByName from "./data/services/fetchAppsByName";
+import FetchAppsByCategory from "./data/services/fetchAppsByCategory";
+import FetchAllCategories from "./data/services/fetchAllCategories";
+import { EDataType } from "./data/constants";
 
 function App() {
   // Get Data from the Service
-  const [data, isLoading, hasError] = useFetchApps();
-  const categories = useFetchCategories();
-
+  const categories = FetchAllCategories();
+  // Get Text from search input field
   const [inputText, setInputText] = useState<string>("");
+  // Get the Category selected
+  const [category, setCategory] = useState<string>("");
+
+  // Fetch Apps By Text - Only listen to Name
+  const [dataByName, dataByNameIsLoading, dataByNameHasError] =
+    FetchAppsByName(inputText);
+  // Fetch Apps By Category
+  const [dataByCategory, dataByCategoryIsLoading, dataByCategoryHasError] =
+    FetchAppsByCategory(category);
+
+  // Global State to get all results
+  const [results, setResults] = useState<IApp[]>([]);
+  const [dataType, setDataType] = useState<EDataType>();
+
+  useEffect(() => {
+    switch (dataType) {
+      case EDataType.CATEGORIES:
+        setResults(dataByCategory);
+        break;
+      case EDataType.TEXT:
+        setResults(dataByName);
+        break;
+      default:
+        break;
+    }
+  }, [dataType, dataByCategory, dataByName]);
 
   const onChangeCallback = (text: string) => {
     setInputText(text);
+    setDataType(EDataType.TEXT);
   };
-
-  const onClickCategoryHandler = (item: String) => {
-    console.log("Category clicked:  ", item);
+  const onClickCategoryHandler = (item: string) => {
+    setCategory(item);
+    setDataType(EDataType.CATEGORIES);
   };
 
   return (
@@ -50,18 +79,26 @@ function App() {
           </div>
           <div className="right-panel">
             <h3 className="search-label">
-              {inputText.length ? (
-                <span>
-                  Search Results for:&nbsp;
-                  <span className="text-searched">{inputText}</span>
-                </span>
-              ) : (
-                <span>App Directory</span>
-              )}
+              <>
+                {inputText.length ? (
+                  <div>
+                    Search Results for:&nbsp;
+                    <span className="text-searched">
+                      {inputText || category}
+                    </span>
+                  </div>
+                ) : (
+                  <div>App Directory</div>
+                )}
+                <div>
+                  Total Results:&nbsp;
+                  <span className="text-searched">{results.length}</span>
+                </div>
+              </>
             </h3>
             <div className="search-results-area">
               <AppsListing
-                data={data}
+                data={results}
                 onClickCategory={onClickCategoryHandler}
               />
             </div>

@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ICategoriesProps {
-  data: String[];
+  data: string[];
   onClickCallBack(item: String): void;
 }
 

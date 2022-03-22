@@ -1,7 +1,7 @@
 import React from "react";
-import useSearchApps from "./apps.search.service";
+import useSearchApps from "./fetchAppsByName";
 
-const useFetchCategories = (): string[] => {
+const FetchAllCategories = (): string[] => {
   // Get Data from the Service
   const [data] = useSearchApps();
 
@@ -14,6 +14,7 @@ const useFetchCategories = (): string[] => {
   // Iterate form the extrated arrays
   // Concat into a single array of strings.
   // Filter to Remove duplicates
+  // Sort by Alphabetic desc
   for (var i = 0; i < categoriesData.length; i++) {
     newArr = newArr
       .concat(categoriesData[i] as string[])
@@ -24,4 +25,4 @@ const useFetchCategories = (): string[] => {
   return newArr;
 };
 
-export default useFetchCategories;
+export default FetchAllCategories;
