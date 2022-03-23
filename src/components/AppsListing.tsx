@@ -14,7 +14,16 @@ const AppsListing: React.FunctionComponent<IAppsListing> = (
   const { data, onClickCategory } = props;
 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const pages = Math.round(data.length / PAGE_SIZE);
+
+  // Number of Pages
+  const pages = () => {
+    let result: number = data.length / PAGE_SIZE;
+    if (Number.isInteger(result)) {
+      return result;
+    } else {
+      return Math.round(result) + 1;
+    }
+  };
 
   const goToPreviousPage = () => {
     setCurrentPage((page) => page - 1);
@@ -22,26 +31,19 @@ const AppsListing: React.FunctionComponent<IAppsListing> = (
   const goToNextPage = () => {
     setCurrentPage((page) => page + 1);
   };
-
   const changePage = (e: any) => {
     const pageNumber = Number(e.target.textContent);
-    // console.log("pageNumber :", pageNumber);
     setCurrentPage(pageNumber);
   };
 
+  // Build the Pagination Numbers
   const getPaginationGroup = () => {
-    let start = Math.floor(currentPage - 1);
-    /*
-    console.log("START :", start);
-    console.log("PAGES :", pages);
-    console.log("data.length : ", data.length);
-    console.log("currentPage : ", currentPage);
-    */
-    return new Array(PAGE_SIZE)
-      .fill(pages, 1, pages)
-      .map((_, idx) => start + idx + 1);
+    return new Array(pages())
+      .fill(PAGE_SIZE, 0, pages())
+      .map((_, idx) => idx + 1);
   };
 
+  // Get List of Apps Sliced by PAGE_SIZE
   const getPaginatedData = () => {
     const startIndex = currentPage * PAGE_SIZE - PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
@@ -67,14 +69,14 @@ const AppsListing: React.FunctionComponent<IAppsListing> = (
             onClick={goToPreviousPage}
             className={`prev ${currentPage === 1 ? "disabled" : ""}`}
           >
-            prev
+            <span>«</span>
           </button>
           {getPaginationGroup().map((item, index) => (
             <button
               key={index}
               onClick={changePage}
               className={`paginationItem ${
-                currentPage === item ? "active" : null
+                currentPage === item ? "active" : ""
               }`}
             >
               <span>{item}</span>
@@ -82,9 +84,9 @@ const AppsListing: React.FunctionComponent<IAppsListing> = (
           ))}
           <button
             onClick={goToNextPage}
-            className={`next ${currentPage === pages ? "disabled" : ""}`}
+            className={`next ${currentPage === pages() ? "disabled" : ""}`}
           >
-            next
+            <span>»</span>
           </button>
         </div>
       )}

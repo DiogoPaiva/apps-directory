@@ -19,7 +19,6 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (
   const [inputText, setInputText] = useState<string>("");
   const clearInputText = () => {
     setInputText("");
-    // onChange("");
   };
 
   return (
@@ -27,7 +26,6 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (
       <div className="icon-wrapper search-icon">
         <img src={SearchIcon} alt="Search Icon" />
       </div>
-
       <input
         type="text"
         name="search-input"

@@ -16,8 +16,11 @@ const FetchAppsByCategory = (category: string): [IApp[], boolean, IError] => {
       .then((res) => res.json())
       .then(
         (result) => {
-          setData(result);
-          setIsLoading(false);
+          setIsLoading(true);
+          setTimeout(() => {
+            setData(result);
+            setIsLoading(false);
+          }, 500);
         },
         (error) => {
           setIsLoading(false);

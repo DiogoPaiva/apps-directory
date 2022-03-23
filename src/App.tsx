@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { AppsListing, Categories, SearchBar } from "./components";
+import React, { useEffect, useState } from "react";
+import { AppsListing, Categories, SearchBar, Spinner } from "./components";
 import { IApp } from "./data/interfaces/app.interface";
 import FetchAppsByName from "./data/services/fetchAppsByName";
 import FetchAppsByCategory from "./data/services/fetchAppsByCategory";
@@ -20,6 +20,10 @@ function App() {
   // Fetch Apps By Category
   const [dataByCategory, dataByCategoryIsLoading, dataByCategoryHasError] =
     FetchAppsByCategory(category);
+  // Global Loading
+  const isLoading = dataByNameIsLoading || dataByCategoryIsLoading;
+  // Global Error
+  const hasError = dataByNameHasError || dataByCategoryHasError;
 
   // Global State to get all results
   const [results, setResults] = useState<IApp[]>([]);
@@ -31,13 +35,16 @@ function App() {
         setResults(dataByCategory);
         break;
       case EDataType.TEXT:
+      case EDataType.ALL:
         setResults(dataByName);
         break;
       default:
+        setResults(dataByName);
         break;
     }
   }, [dataType, dataByCategory, dataByName]);
 
+  // Set Text input and set the type of search
   const onChangeCallback = (text: string) => {
     setInputText(text);
     setDataType(EDataType.TEXT);
@@ -47,6 +54,11 @@ function App() {
     setDataType(EDataType.CATEGORIES);
   };
 
+  // @TODO - Improve this
+  const onClickShowAll = () => {
+    setDataType(EDataType.ALL);
+    setInputText("");
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -66,7 +78,9 @@ function App() {
             <div className="categories-wrapper">
               <div className="menu-left">
                 <h3>Browse</h3>
-                <div className="item-category">All</div>
+                <div className="item-category" onClick={onClickShowAll}>
+                  All
+                </div>
               </div>
               <div className="menu-left">
                 <h3>Choose Category</h3>
@@ -79,28 +93,41 @@ function App() {
           </div>
           <div className="right-panel">
             <h3 className="search-label">
-              <>
-                {inputText.length ? (
-                  <div>
-                    Search Results for:&nbsp;
-                    <span className="text-searched">
-                      {inputText || category}
-                    </span>
-                  </div>
-                ) : (
-                  <div>App Directory</div>
-                )}
-                <div>
-                  Total Results:&nbsp;
-                  <span className="text-searched">{results.length}</span>
-                </div>
-              </>
+              <span>App Directory</span>
             </h3>
+            <div className="result-info">
+              {inputText.length > 0 && dataType === EDataType.TEXT && (
+                <div className="info-line">
+                  <span className="info-label">Search Results for:&nbsp;</span>
+                  <span className="text-searched">{inputText}</span>
+                </div>
+              )}
+              {dataType === EDataType.CATEGORIES && (
+                <div className="info-line">
+                  <span className="info-label">Search Results for:&nbsp;</span>
+                  <span className="text-searched">{category}</span>
+                </div>
+              )}
+              <div className="info-line">
+                {results.length > 0 && (
+                  <span className="info-label">Total Results:&nbsp;</span>
+                )}
+                <span className="text-searched">
+                  {results.length || "No Results Found!"}
+                </span>
+              </div>
+            </div>
             <div className="search-results-area">
-              <AppsListing
-                data={results}
-                onClickCategory={onClickCategoryHandler}
-              />
+              {isLoading && <Spinner />}
+              {!isLoading && results.length > 0 && (
+                <AppsListing
+                  data={results}
+                  onClickCategory={onClickCategoryHandler}
+                />
+              )}
+              {!isLoading && results.length < 1 && (
+                <div className="no-results">No Results Found!</div>
+              )}
             </div>
             <div style={{ height: "50px" }}>&nbsp;</div>
           </div>

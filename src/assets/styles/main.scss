@@ -31,7 +31,7 @@ body {
     justify-content: center;
     font-size: calc(10px + 1vmin);
     color: $color-white;
-    justify-items: flex-start;
+    min-height: 75px;
     h1 {
       display: flex;
       flex-direction: column;
@@ -64,7 +64,7 @@ body {
         flex-direction: column;
         flex: 1;
         height: 100%;
-        border-right: 1px solid #ccc;
+        border-right: 1px solid $color-grey-b3b;
         .categories-wrapper {
           padding: 2em;
           .menu-left {
@@ -99,9 +99,20 @@ body {
         height: 100%;
         padding: 20px;
         .search-label {
-          .text-searched {
-            color: $color-blue;
-            font-size: 1.1em;
+          color: $color-blue;
+          font-size: 26px;
+        }
+        .result-info {
+          margin-bottom: 25px;
+          .info-line {
+            font-size: 14px;
+            .info-label {
+              color: $color-grey-333;
+            }
+            .text-searched {
+              color: $color-blue;
+              font-weight: bold;
+            }
           }
         }
       }
@@ -122,7 +133,6 @@ body {
 
 .error-container {
   color: $color-blue;
-
   text-align: center;
   height: 100%;
   width: 100%;

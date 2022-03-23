@@ -4,4 +4,5 @@ export const PAGE_SIZE = 3;
 export enum EDataType {
   CATEGORIES = "CATEGORIES",
   TEXT = "TEXT",
+  ALL = "ALL",
 }

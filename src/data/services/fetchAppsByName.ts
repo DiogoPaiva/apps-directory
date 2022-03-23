@@ -23,9 +23,11 @@ const FetchAppsByName = (queryString?: string): [IApp[], boolean, IError] => {
       .then(
         (result) => {
           // Parse to use dot notation
-          const arrayData = JSON.parse(JSON.stringify(result));
-          setData(result);
-          setIsLoading(false);
+          setIsLoading(true);
+          setTimeout(() => {
+            setData(result);
+            setIsLoading(false);
+          }, 500);
         },
         (error) => {
           setIsLoading(false);

@@ -38,12 +38,9 @@
     height: 50px;
   }
   .loader {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
+    display: flex;
+    align-self: center;
+    top: 17vh;
     font-size: 10px;
     position: relative;
     text-indent: -9999em;
@@ -80,8 +77,8 @@
 }
 
 @mixin pricePlan {
-  background-color: #fff;
-  color: #333;
+  background-color: $color-white;
+  color: $color-grey-333;
   padding: 0 4.5px;
   border-radius: 10px;
   font-size: 14px;
