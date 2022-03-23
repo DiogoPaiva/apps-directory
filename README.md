@@ -6,7 +6,7 @@ Use a command-line terminal to run every command.
 ## First Steps - Install API Server
 
 This project is using a full fake REST API lib named `json-server` .
-Documentation can be founded [HERE](https://github.com/facebook/create-react-app).
+Documentation can be founded [HERE](https://github.com/typicode/json-server).
 
 #### 1- Install Server Globally
 
