@@ -8,6 +8,7 @@ body {
 .title-font {
   font-family: $font-base;
   font-weight: $font-regular;
+  cursor: pointer;
   &.bold {
     font-weight: $font-bold;
   }
@@ -68,6 +69,9 @@ body {
         .categories-wrapper {
           padding: 2em;
           .menu-left {
+            h3 {
+              color: $color-blue;
+            }
             .category-container {
               ul {
                 padding: 0;

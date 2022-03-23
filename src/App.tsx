@@ -62,7 +62,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="title-font">App Store</h1>
+        <h1 className="title-font" onClick={onClickShowAll}>
+          App Store
+        </h1>
         <div className="input-search-area">
           <SearchBar
             onChange={(e) => {

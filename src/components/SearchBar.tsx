@@ -16,6 +16,7 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (
   const { onChange, placeholder, maxLength, disabled } = props;
 
   // Clear Input text on click
+  // @TODO - After cleared all text it should reset search and show all results
   const [inputText, setInputText] = useState<string>("");
   const clearInputText = () => {
     setInputText("");
